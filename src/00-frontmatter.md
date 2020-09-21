@@ -1,8 +1,8 @@
 
 
-# Causality for Machine Learning
+# Meta-Learning
 
-FF13 · _May 2020_ 
+FF15 · _September 2020_ 
 
 ![Causality for Machine Learning report cover](figures/ff13-cover-splash.png)
 
