@@ -594,7 +594,7 @@ h2 {
 <p><em>This is an applied research report by <a href="https://www.cloudera.com/products/fast-forward-labs-research.html">Cloudera Fast Forward</a>. We write reports about emerging technologies. Accompanying each report are working prototypes that exhibit the capabilities of the algorithm and offer detailed technical advice on its practical application. Read our full report on causality for machine learning below or <a href="/FF13-Causality_for_Machine_Learning-Cloudera_Fast_Forward.pdf" target="_blank" id="report-pdf-download">download the PDF</a>. Also be sure to check out the complementary prototype, <a href="https://scene.fastforwardlabs.com">Scene</a>.</em></p>
 <p><div class="table-of-contents"><div id="toc-header" style="display: flex; font-weight: bold; text-transform: uppercase;">
      <div><button id="toggle_contents" style="padding-left: 0.5ch; padding-right: 0.5ch; cursor: pointer; position: relative; top: -1px;">☰</button><span id="contents-label" style="margin-left: 0;"> Contents</span></div>
-  </div><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#why-should-we-care%3F">Why should we care?</a></li><li><a href="#why-now%3F">Why now?</a></li></ul></li><li><a href="#framing-the-problem">Framing the problem</a></li><li><a href="#solving-the-problem">Solving the problem</a><ul><li><a href="#data-set-up">Data set-up</a></li><li><a href="#meta-learning">Meta-learning</a></li><li><a href="#model-agnostic-meta-learning-(maml)">Model Agnostic Meta-learning (MAML)</a></li></ul></li><li><a href="#experiment">Experiment</a><ul><li><a href="#dataset">Dataset</a></li><li><a href="#set-up">Set-up</a></li><li><a href="#results">Results</a></li></ul></li></ul></div></p>
+  </div><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#why-should-we-care%3F">Why should we care?</a></li><li><a href="#why-now%3F">Why now?</a></li></ul></li><li><a href="#framing-the-problem">Framing the problem</a></li><li><a href="#solving-the-problem">Solving the problem</a><ul><li><a href="#data-set-up">Data set-up</a></li><li><a href="#meta-learning">Meta-learning</a></li><li><a href="#model-agnostic-meta-learning-(maml)">Model Agnostic Meta-learning (MAML)</a></li></ul></li><li><a href="#experiment">Experiment</a><ul><li><a href="#dataset">Dataset</a></li><li><a href="#set-up">Set-up</a></li><li><a href="#results">Results</a></li></ul></li><li><a href="#challenges-and-ways-to-overcome">Challenges and ways to overcome</a></li><li><a href="#ethics">Ethics</a></li><li><a href="#moving-forward">Moving forward</a></li></ul></div></p>
 <p>In early spring of 2019, we researched approaches that would allow a machine learning practitioner to perform supervised learning with only a
 limited number of examples available during training. This search led us to a new paradigm: meta-learning, in which an algorithm not only learns
 from a handful of examples, but also learns to classify novel classes during model inference. We decided to focus our research report—<a href="https://blog.fastforwardlabs.com/2019/04/02/a-guide-to-learning-with-limited-labeled-data.html">Learning
@@ -654,7 +654,7 @@ parameters as prior knowledge to tune them further, based on the limited trainin
 <p>Now the question is, how can the model learn a good initial set of parameters which can then be easily adapted to the downstream tasks?
 The answer lies in a simple training principle, which was initially proposed by Vinyals et. al.<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup>:</p>
 <div class="info">
-<p>train and test conditions must match.</p>
+<center>Train and test conditions must match</center>
 </div>
 <p>The idea is to train a model by showing it only a few examples per class, and then test it against examples from the same classes that have been
 held out from the original dataset, much the way it will be tested when presented with only a few training examples from novel classes. Each
@@ -787,6 +787,37 @@ the 5-way classification task gives an accuracy of over 60% with just one exampl
 even better with additional examples; for both 5 examples and 10 examples per class, accuracy shoots up to 80%. As expected, for the 10-way
 classification task, the results are lower (by around 10%) but still promising, which suggests the applicability of the approach for fast
 adaptive learning. &lt;&lt;Todo: add a sentence for 20 random sample scenario&gt;&gt;</p>
+<h2 id="challenges-and-ways-to-overcome">Challenges and ways to overcome</h2>
+<p>The MAML approach fine-tunes its model using gradient descent each time for a new task. This requires it to backpropagate the meta-loss through
+the model’s gradients, which involves computing derivatives of derivatives, i.e., second derivatives. While the gradient descent at test time helps it extrapolate better, it does have its costs.</p>
+<p>Backpropagating through many inner steps can be compute and memory intensive. With only a few gradient steps, it might be a less time-consuming
+endeavor, but it may not be the best solution for scenarios that require a higher number of gradient steps at test time. That said, the authors of
+the <a href="https://arxiv.org/pdf/1703.03400.pdf">MAML paper</a> also propose a first-order approximation that eliminates the need to compute the second
+derivatives, with a comparable performance. Another closely related work is OpenAI’s Reptile;<sup class="footnote-ref"><a href="#fn15" id="fnref15">[15]</a></sup> it builds on first-order MAML, but doesn’t need to split the episode into support and query sets, making it a
+natural choice in certain settings. However, experiments suggest that approaches to reduce computation time while not sacrificing generalization
+performance are still in the works.<sup class="footnote-ref"><a href="#fn16" id="fnref16">[16]</a></sup></p>
+<p>As we saw previously, learning occurs in two stages: gradual learning is performed across tasks, and rapid learning is performed within tasks.
+This requires two learning rates, which introduces difficulty in choosing hyper-parameters that would help achieve training stability.
+The two learning rates introduce hyper-parameter grid search computation, and hence, time and resources. It is also important to select the learning rate for the adaptation process carefully because it is learning over only a few examples. In that regard, some solutions or extensions to MAML
+have been developed to reduce the need for grid search or hyper-parameter tuning. For example, Alpha MAML<sup class="footnote-ref"><a href="#fn17" id="fnref17">[17]</a></sup> eliminates the need to tune both the learning rates by automatically updating them as needed. MAML++, on the other hand, proposes updating the query set loss (meta-loss) for every training step in the adaptation process, which can help get rid of the training instabilities. In addition, they suggest various other steps to make it computationally efficient.</p>
+<p>Research that performs neural architecture search for gradient-based meta-learners<sup class="footnote-ref"><a href="#fn18" id="fnref18">[18]</a></sup> also suggests that approaches like MAML and its extensions tend to perform better with deeper neural architectures for few-shot classification tasks. While note-worthy, it nevertheless should be explored further with more experiments.</p>
+<h2 id="ethics">Ethics</h2>
+<p>Meta-learning alleviates the need to collect vast amounts of data, and hence is applicable where supervised training examples are difficult (or
+even impossible) to acquire, given safety, security and privacy issues. If training efficient deep learning models is possible in such a scenario
+with just a handful of examples, it will benefit machine learning practitioners and its overall adoption.</p>
+<p>Recent research<sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup> in fairness addresses the question of how a practitioner who has access to only a few labeled examples can successfully train a fair machine learning model. The paper suggests that one can do so by extending the MAML algorithm to Fair-MAML, such that each task includes a fairness regularization term in
+the task losses and a fairness hyperparameter—gamma—in hopes of encouraging MAML to learn generalizable internal representations that strike a desirable balance between accuracy and fairness.</p>
+<h2 id="moving-forward">Moving forward</h2>
+<p>Meta-learning is appealing; its ability to learn from a few examples makes it particularly attractive. A gradient-based approach like MAML puts us in familiar territory: using pre-trained models and fine-tuning them. The MAML algorithm is simple, and its ability to perform a few gradient steps at inference time allows it to generalize quickly to unseen classes. The approach is applicable to a variety of problems—including regression, classification, and reinforcement learning—and can be combined with any model architecture, as long as the model is trained based on gradient descent.</p>
+<p>While there are many areas of future research on meta-learning, here is our perspective on what could make it more adoptable in real world scenarios, as well as which areas could benefit from future work.</p>
+<p>Some of the success of meta-learning in solving few-shot learning problems can be attributed to the way the data is set up for training and testing: episodes. In general, <em>N</em>-way, <em>k</em>-shot learning is much easier if you train the model to do <em>N</em>-way, <em>k</em>-shot learning. For our experiments,
+as well as the various approaches in this area, how we defined an episode was pretty arbitrary. For instance, we made an assumption that during meta-test time we would face a 5-way or a 10-way problem, with each class having either a single example or five examples. Will a real world inference scenario always match this expectation? Likely not. It could be more valuable to find an approach that can relax this assumption.</p>
+<p>Another area worth exploring is whether it is possible to train on heterogeneous datasets. For example, can we train a meta-learning model to classify a fork based on doodles,  photos of forks at restaurants, or images from product catalogs (basically, forks from different training domains or environments)? How should we define the meta-training set and episodes in such a scenario? Should we consider classes from all the environments to define the meta-train/validation/test datasets? A recent paper that applies meta-learning for few-shot land cover classification,<sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup>  in which the class images vary by regions (urban areas, continents, or vegetation) suggests using classes from one environment for the support set and classes from another environment for the query set. The authors find that meta-learning (MAML, actually) can benefit Earth Sciences, especially when there is a high degree of diversity in the data.</p>
+<p>In real world scenarios, it’s often likely that we’ll have lots of unlabeled data. In such circumstances, is it possible to employ meta-learning algorithms to leverage these unlabeled datasets? The authors of one research paper<sup class="footnote-ref"><a href="#fn21" id="fnref21">[21]</a></sup> propose a solution to this by augmenting a metric-based meta-learning approach to leverage unlabeled examples. In addition to the support set and the query set, the episode includes an unlabeled set. This unlabeled set may or may not contain examples from the support set classes. The idea is to use the labeled examples from the support set and the unlabeled examples within each episode to generalize for a good performance on the corresponding query set. Experiments show an improvement in model performance in some cases.</p>
+<p>Another interesting idea that’s being explored is at the crossroads of active learning<sup class="footnote-ref"><a href="#fn22" id="fnref22">[22]</a></sup> and meta-learning. The field of active learning takes advantage of machine learning in collaboration with humans, selecting examples from vast pools of unlabeled data and requesting labels for them. At times, these examples are chosen based on how uncertain the model is about its predicted label, or by how “different” it is than the rest, etc.—with the ultimate aim to improve model performance. Since there are fewer labeled training examples to begin with, one could employ meta-learning approaches in such a scenario; for instance, a metric-based approach has been discussed for batch-mode active learning.<sup class="footnote-ref"><a href="#fn23" id="fnref23">[23]</a></sup> (It is also possible to learn a label acquisition strategy instead.)<sup class="footnote-ref"><a href="#fn24" id="fnref24">[24]</a></sup></p>
+<p>Over the coming years, we will see additional approaches that will make meta-learning even more adoptable in real world scenarios; whether it’s using meta-learning successfully on heterogeneous data or leveraging unlabeled data, these approaches will make learning and generalizing with fewer labeled examples possible. As previously mentioned,  we will continue to see research that simplifies both the training and inference process. These advances will allow machine learning practitioners to develop even more new ways of designing machine learning systems.</p>
+<h4 id="author%E2%80%99s-note">Author’s note</h4>
+<p>Thank you so much for reading this article. This work has been deeply influenced by the work of <a href="https://ai.stanford.edu/~cbfinn/">Professor Chelsea Finn</a>. Also, the torch-meta library, along with its demo examples, made it easier to understand and showcase meta-learning.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
 <ol class="footnotes-list">
@@ -821,6 +852,27 @@ course, there is no support or query set! <a href="#fnref12" class="footnote-bac
 <li id="fn14" class="footnote-item"><p>While it is possible to have two duplicate models that can
 share parameter tensors in popular deep learning frameworks like PyTorch, libraries like <a href="https://github.com/tristandeleu/pytorch-meta">torch-meta</a>
 have extended the existing torch modules to allow storing additional/new parameters. <a href="#fnref14" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn15" class="footnote-item"><p><a href="https://arxiv.org/pdf/1803.02999.pdf">On First-Order Meta-Learning Algorithms</a> <a href="#fnref15" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn16" class="footnote-item"><p><a href="https://arxiv.org/pdf/1810.09502.pdf">How to train your MAML</a> <a href="#fnref16" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn17" class="footnote-item"><p><a href="https://arxiv.org/abs/1905.07435">Alpha MAML: Adaptive Model Agnostic Meta Learning</a> <a href="#fnref17" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn18" class="footnote-item"><p><a href="https://arxiv.org/abs/1806.06927">Auto-Meta: Automated Gradient Based Meta Learner Search</a> <a href="#fnref18" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn19" class="footnote-item"><p><a href="https://dl.acm.org/doi/abs/10.1145/3351095.3372839">Fairness warnings and fair-MAML: learning fairly with minimal data</a> <a href="#fnref19" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn20" class="footnote-item"><p><a href="https://arxiv.org/pdf/2004.13390.pdf">Meta-learning for Few-shot Land Cover Classification</a> <a href="#fnref20" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn21" class="footnote-item"><p><a href="https://arxiv.org/pdf/1803.00676.pdf">Meta-learning for semi-supervised few-shot classification</a> <a href="#fnref21" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn22" class="footnote-item"><p><a href="https://blog.cloudera.com/a-guide-to-learning-with-limited-labeled-data/">A Guide to Learning with Limited Labeled Data
+</a> <a href="#fnref22" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn23" class="footnote-item"><p><a href="https://openreview.net/pdf?id=r1PsGFJPz">Meta-learning for Batch Mode Active Learning (PDF)</a> <a href="#fnref23" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn24" class="footnote-item"><p><a href="https://arxiv.org/abs/1806.04798">Meta-Learning Transferable Active Learning Policies by Deep Reinforcement Learning</a> <a href="#fnref24" class="footnote-backref">↩︎</a></p>
 </li>
 </ol>
 </section>

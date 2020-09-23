@@ -15,7 +15,7 @@ The answer lies in a simple training principle, which was initially proposed by 
 
 ::: info
 
-train and test conditions must match.
+<center>Train and test conditions must match</center>
 
 ::: 
 
