@@ -1,17 +1,39 @@
 ## Introduction
 
-In recent years, machine learning has made remarkable progress, providing novel capabilities like the creation of sophisticated, computable representations of text and images. These capabilities have enabled new products, such as image searches based on image content, automatic translation between many languages, and even the synthesis of realistic images and voice. Simultaneously, machine learning has seen widespread adoption in the enterprise for classic use cases (for instance, predicting customer churn, loan defaulting, and manufacturing equipment failure). 
+Humans have an innate ability to learn new skills quickly. For example, we can look at one instance of a knife and be able to discriminate all knives from other cutlery items, like spoons and forks. Our ability to learn new skills and adapt to new environments quickly (based on only a few experiences or demonstrations) is not just limited to identifying new objects, learning a new language, or figuring out how to use a new tool;  our capabilities are much more varied. In contrast, machines—especially deep learning algorithms—typically learn quite differently. They require vast amounts of data and compute and may yet struggle to generalize. The reason humans are successful in adapting and learning quickly is that they leverage knowledge acquired from prior experience to solve novel tasks. In a similar fashion, meta-learning leverages previous knowledge acquired from data to solve novel tasks quickly and more efficiently.
 
-Where machine learning has been successful, it has been extraordinarily so.
+![Figure 1: Humans can learn things quickly](out/figures/1.png)
 
-In many cases, that success can be attributed to supervised learning on large volumes of training data (combined with extensive computation). Broadly, supervised learning systems excel at one task: _prediction_. When the goal is to predict an outcome, and when we have many examples of that outcome arising, as well as the features associated with it, we may turn to supervised learning.
+### Why should we care?
 
-As machine learning has gained popularity, its sphere of influence in business processes has expanded beyond narrow prediction and into decision making. The results of machine learning systems are routinely used to set credit limits, anticipate manufacturing equipment failures, and curate our various news feeds. As individuals and businesses seek to learn from the information provided by such complex and nonlinear systems, more (and better) methods for interpretability have been developed, and this is both healthy and important.
+An experienced ML practitioner might wonder, isn’t this covered by recent (and much-accoladed) advances in transfer learning? Well, no. Not exactly. 
+First, supervised learning through deep learning methods requires massive amounts of labeled training data. These datasets are expensive to create, especially when one needs to involve a domain expert. While pre-training is beneficial, these approaches become less effective for domain-specific problems, which still require large amounts of task-specific labeled data to achieve good performance. 
 
-However, there are fundamental limits to reasoning based on prediction alone. For instance, what will happen if a bank increases a customer’s credit limit? Such questions cannot be answered by a correlative model built on previously observed data, because they involve a possible change in the customer's choices as a reaction to the change in credit limit. In many cases, the outcome of our decision process is an _intervention_ - an action that changes something in the world. As we’ll demonstrate in this report, purely correlative predictive systems are not equipped for reasoning under such interventions, and hence are prone to biases. For data-informed decision making under intervention, we need causality.
+In addition, certain real world problems have long-tailed and imbalanced data distributions, which may make it difficult to collect training 
+examples.^[Learning to Model the Tail (PDF)](https://papers.nips.cc/paper/7278-learning-to-model-the-tail.pdf) For instance, in the case of search 
+engines, perhaps a few keywords are commonly searched for, whereas a vast majority of keywords are rarely searched for. This may result in 
+poor performance of models/applications based on long-tailed or imbalanced data distributions. The same could be true of recommendation engines; 
+when there are not enough user reviews or ratings for obscure movies or products, it can 
+hinder model performance.
 
-Even for purely predictive systems, which is very much the forte of supervised learning, applying some causal thinking brings benefits. Causal relationships are by their definition _invariant_, meaning they hold true across different circumstances and environments. This is a very desirable property for machine learning systems, where we often predict on data that we have not seen in training; we need these systems to be adaptable and robust.
+![Figure 2: Long-tailed distributions](out/figures/2.png)
 
-The intersection of causal inference and machine learning is a rapidly expanding area of research. It is already yielding capabilities that are ready for mainstream adoption - capabilities which can help us build more robust, reliable, and fair machine learning systems.
+Most important, the ability to learn new tasks quickly during model inference is something that conventional machine learning approaches do not attempt. This is what makes meta-learning particularly attractive. 
 
-This report is an introduction to causal reasoning as it pertains to much data science and machine learning work. We introduce causal graphs, with a focus on removing the _conceptual_ barriers to understanding. We then use this understanding to explore recent ideas around _invariant prediction_, which brings some of the benefits of causal graphs to high dimensional problems. Along with the accompanying prototype, we show how even classic machine learning problems, like image classification, can benefit from the tools of causal inference.
+### Why now?
+
+From a deep learning perspective, meta-learning is particularly exciting and adoptable for three reasons: the ability to learn from a handful of examples, learning or adapting to novel tasks quickly, and the capability to build more generalizable systems. These are also some of the reasons why meta-learning is successful in applications that require data-efficient approaches; for example, robots are tasked with learning new skills in the real world, and are often faced with new environments.
+
+Further, computer vision is one of the major areas in which meta-learning techniques have been explored to solve few-shot learning 
+problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.^[Meta-learning in Neural Networks: A Survey](https://arxiv.org/abs/2004.05439) Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words^[Matching Networks for One-Shot Learning](https://arxiv.org/abs/1606.04080) and machine translation^[Meta-Learning for Low-Resource Neural Machine Translation](https://arxiv.org/abs/1808.08437), and is also being applied to speech recognition tasks, like cross-accent adaptation.^[Learning Fast Adaptation on Cross-Accented Speech Recognition](https://arxiv.org/abs/2003.01901)
+
+![Figure 3: Applications - object detection, machine translation, missing words](out/figures/3.png)
+
+As with any other machine learning capability that starts to show promise, there are now libraries and tooling that make meta-learning 
+more accessible. Although not entirely production-ready, libraries like [torch-meta](https://github.com/tristandeleu/pytorch-meta), [learn2learn](https://github.com/learnables/learn2learn) and [meta-datasets](https://github.com/google-research/meta-dataset) help handle data, simplify processes when used with popular deep learning frameworks, and help document and benchmark performance on datasets. 
+
+The rest of this article, along with its accompanying code, explores meta-learning, provides insight into how it works, and discusses its 
+implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning^[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)—applied to a few-shot classification problem, which was proposed a while ago, but 
+continues to provide a good basis for extension and modification even today. 
+
+
