@@ -23,7 +23,7 @@ The idea is to train a model by showing it only a few examples per class, and th
 held out from the original dataset, much the way it will be tested when presented with only a few training examples from novel classes. Each 
 training example, in this case, comprises pairs of train and test data points called an *episode*.
 
-![Figure 6: Meta-learning data setup^[ Figure adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)]](out/figures/6.png)
+![Figure 6: Meta-learning data setup](figures/ff15-49.png)^[ Figure adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)]]
 
 This is a departure from the way that data is set up for conventional supervised learning. The training data (also called the meta-training data) 
 is composed of train and test examples, alternately referred to as the support and query set.
@@ -79,7 +79,7 @@ In the next step, we look at the next episode, train on the support set examples
 repeat. In attempting to learn a meta-learner this way, we are trying to solve the problem of generalization. The examples in the test (or query) 
 set are not part of the training—so, in a way, the meta-learner is learning to extrapolate.
 
-![Figure 7: Learning to learn](out/figures/7.png)
+![Figure 7: Learning to learn](figures/ff15-50.png)
 
 ### Model Agnostic Meta-learning (MAML)
 
@@ -122,7 +122,7 @@ The “meta-loss” indicates how well the model is performing on the task. In e
 approach for every new task in the batch of episodes. Further, the *learner* acts as initialization parameters for the *adapter* so that it can 
 perform task-specific learning.
 
-![Figure 8: MAML](out/figures/8.png)
+![Figure 8: MAML](figures/ff15-51.png)
 
 During inference, we actually use the meta-trained model (*learner*) to predict on the meta-test set, except this time—although the meta-trained 
 model undergoes additional gradient steps to help classify the query set examples—the *learner* parameters aren’t updated.
@@ -133,10 +133,3 @@ Further, since the approach actually undergoes a few gradient steps for a novel 
 and hence achieves better generalization. This behavior can be attributed to the central assumption of meta-learning: that the tasks are 
 inherently related and thus data-driven inductive bias can be leveraged to achieve better generalization.
  
-
-
-
-
-
- 
-

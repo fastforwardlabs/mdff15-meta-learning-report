@@ -9,7 +9,7 @@ some light on the great work that’s been done in this area so far.
 
 Humans have an innate ability to learn new skills quickly. For example, we can look at one instance of a knife and be able to discriminate all knives from other cutlery items, like spoons and forks. Our ability to learn new skills and adapt to new environments quickly (based on only a few experiences or demonstrations) is not just limited to identifying new objects, learning a new language, or figuring out how to use a new tool;  our capabilities are much more varied. In contrast, machines—especially deep learning algorithms—typically learn quite differently. They require vast amounts of data and compute and may yet struggle to generalize. The reason humans are successful in adapting and learning quickly is that they leverage knowledge acquired from prior experience to solve novel tasks. In a similar fashion, meta-learning leverages previous knowledge acquired from data to solve novel tasks quickly and more efficiently.
 
-![Figure 1: Humans can learn things quickly](out/figures/1.png)
+![Figure 1: Humans can learn things quickly](figures/ff15-44.png)
 
 ### Why should we care?
 
@@ -23,7 +23,7 @@ poor performance of models/applications based on long-tailed or imbalanced data 
 when there are not enough user reviews or ratings for obscure movies or products, it can 
 hinder model performance.
 
-![Figure 2: Long-tailed distributions](out/figures/2.png)
+![Figure 2: Long-tailed distributions](figures/ff15-45.png)
 
 Most important, the ability to learn new tasks quickly during model inference is something that conventional machine learning approaches do not attempt. This is what makes meta-learning particularly attractive. 
 
@@ -34,7 +34,7 @@ From a deep learning perspective, meta-learning is particularly exciting and ado
 Further, computer vision is one of the major areas in which meta-learning techniques have been explored to solve few-shot learning 
 problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.^[Meta-learning in Neural Networks: A Survey](https://arxiv.org/abs/2004.05439) Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words^[Matching Networks for One-Shot Learning](https://arxiv.org/abs/1606.04080) and machine translation^[Meta-Learning for Low-Resource Neural Machine Translation](https://arxiv.org/abs/1808.08437), and is also being applied to speech recognition tasks, like cross-accent adaptation.^[Learning Fast Adaptation on Cross-Accented Speech Recognition](https://arxiv.org/abs/2003.01901)
 
-![Figure 3: Applications - object detection, machine translation, missing words](out/figures/3.png)
+![Figure 3: Applications - object detection, machine translation, missing words](figures/ff15-46.png)
 
 As with any other machine learning capability that starts to show promise, there are now libraries and tooling that make meta-learning 
 more accessible. Although not entirely production-ready, libraries like [torch-meta](https://github.com/tristandeleu/pytorch-meta), [learn2learn](https://github.com/learnables/learn2learn) and [meta-datasets](https://github.com/google-research/meta-dataset) help handle data, simplify processes when used with popular deep learning frameworks, and help document and benchmark performance on datasets. 
