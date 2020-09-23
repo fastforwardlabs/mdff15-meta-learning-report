@@ -1,3 +1,10 @@
+In early spring of 2019, we researched approaches that would allow a machine learning practitioner to perform supervised learning with only a 
+limited number of examples available during training. This search led us to a new paradigm: meta-learning, in which an algorithm not only learns 
+from a handful of examples, but also learns to classify novel classes during model inference. We decided to focus our research report—[Learning 
+with Limited Labeled Data](https://blog.fastforwardlabs.com/2019/04/02/a-guide-to-learning-with-limited-labeled-data.html)—on active learning for 
+deep neural networks, but we were both intrigued and fascinated with meta-learning as an emerging capability. This article is an attempt to throw 
+some light on the great work that’s been done in this area so far.
+
 ## Introduction
 
 Humans have an innate ability to learn new skills quickly. For example, we can look at one instance of a knife and be able to discriminate all knives from other cutlery items, like spoons and forks. Our ability to learn new skills and adapt to new environments quickly (based on only a few experiences or demonstrations) is not just limited to identifying new objects, learning a new language, or figuring out how to use a new tool;  our capabilities are much more varied. In contrast, machines—especially deep learning algorithms—typically learn quite differently. They require vast amounts of data and compute and may yet struggle to generalize. The reason humans are successful in adapting and learning quickly is that they leverage knowledge acquired from prior experience to solve novel tasks. In a similar fashion, meta-learning leverages previous knowledge acquired from data to solve novel tasks quickly and more efficiently.
@@ -10,8 +17,8 @@ An experienced ML practitioner might wonder, isn’t this covered by recent (and
 First, supervised learning through deep learning methods requires massive amounts of labeled training data. These datasets are expensive to create, especially when one needs to involve a domain expert. While pre-training is beneficial, these approaches become less effective for domain-specific problems, which still require large amounts of task-specific labeled data to achieve good performance. 
 
 In addition, certain real world problems have long-tailed and imbalanced data distributions, which may make it difficult to collect training 
-examples.^[Learning to Model the Tail (PDF)](https://papers.nips.cc/paper/7278-learning-to-model-the-tail.pdf) For instance, in the case of search 
-engines, perhaps a few keywords are commonly searched for, whereas a vast majority of keywords are rarely searched for. This may result in 
+examples.^[[Learning to Model the Tail (PDF)](https://papers.nips.cc/paper/7278-learning-to-model-the-tail.pdf)] For instance, in the case of 
+search engines, perhaps a few keywords are commonly searched for, whereas a vast majority of keywords are rarely searched for. This may result in 
 poor performance of models/applications based on long-tailed or imbalanced data distributions. The same could be true of recommendation engines; 
 when there are not enough user reviews or ratings for obscure movies or products, it can 
 hinder model performance.
