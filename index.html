@@ -585,9 +585,9 @@ h2 {
           <div id="pdf-logo" style="margin-top: 28px; ">
             <a href="https://www.cloudera.com/products/fast-forward-labs-research.html">Cloudera Fast Forward</a>
           </div>
-          <h1 id="meta-learning">Meta-Learning</h1>
+          <h1 id="meta-learning%3A-learning-to-learn">Meta-learning: Learning to learn</h1>
 <p>FF15 · <em>September 2020</em></p>
-<figure><img src="figures/ff13-cover-splash.png" alt="Causality for Machine Learning report cover"><figcaption>Causality for Machine Learning report cover</figcaption></figure>
+<figure><img src="figures/ff13-cover-splash.png" alt="Meta-learning: Learning to learn report cover"><figcaption>Meta-learning: Learning to learn report cover</figcaption></figure>
 <p><em>This is an applied research report by <a href="https://www.cloudera.com/products/fast-forward-labs-research.html">Cloudera Fast Forward</a>. We write reports about emerging technologies. Accompanying each report are working prototypes that exhibit the capabilities of the algorithm and offer detailed technical advice on its practical application. Read our full report on causality for machine learning below or <a href="/FF13-Causality_for_Machine_Learning-Cloudera_Fast_Forward.pdf" target="_blank" id="report-pdf-download">download the PDF</a>. Also be sure to check out the complementary prototype, <a href="https://scene.fastforwardlabs.com">Scene</a>.</em></p>
 <p><div class="table-of-contents"><div id="toc-header" style="display: flex; font-weight: bold; text-transform: uppercase;">
      <div><button id="toggle_contents" style="padding-left: 0.5ch; padding-right: 0.5ch; cursor: pointer; position: relative; top: -1px;">☰</button><span id="contents-label" style="margin-left: 0;"> Contents</span></div>
@@ -668,7 +668,7 @@ examples in each class <em>(k)</em> corresponds to <em>k</em>-shot, making it an
 meta-learning also has meta-validation and meta-test sets. These are organized in a similar fashion as the meta-training dataset in episodes,
 each with support and query sets; the only difference is that the class categories are split into meta-training, validation, and test datasets,
 such that the classes do not overlap.</p>
-<h3 id="meta-learning-2">Meta-learning</h3>
+<h3 id="meta-learning">Meta-learning</h3>
 <p>A meta-learning model should be trained on a variety of tasks, and then optimized further for novel tasks. A task, in this case, is basically a
 supervised learning problem (like image classification or regression). The idea is to extract prior information from a set of tasks that allows
 efficient learning on new tasks. For our image classification problem, the ideal set-up would include many classes, with at least a few examples
@@ -709,21 +709,22 @@ is good enough, and then fine-tuning the model slightly, will produce good resul
 <p>Imagine we have two neural network models that share the same model architecture:<sup class="footnote-ref"><a href="#fn12" id="fnref12">[12]</a></sup> <em>learner</em> for the meta-learning process and <em>adapter</em> for
 the adaptation process. Since we have two models to train, we also have two different learning rates associated with them. The MAML algorithm can
 then be summarized in the following steps:</p>
-<p>&lt;&lt;Team todo: Does the “while not done” below make sense?&gt;&gt;</p>
 <div class="info">
 <ul>
 <li>Step 1: Randomly initialize the learner</li>
-<li>Step 2: While not done
+<li>Step 2: Repeat the entire process from Step (2.a) to Step (3) for all the episodes of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters.”
 <ul>
 <li>Step 2.a: Sample a batch of episodes from the meta-training dataset</li>
 <li>Step 2.b: Initialize the adapter with the learner’s parameters</li>
-<li>Step 2.c: While number of inner training steps is not equal to zero</li>
+<li>Step 2.c: While number of inner training steps is not equal to zero
+<ul>
 <li>Step 2.c.1: Train the adapter based on the support set(s) of the batch, compute the loss and the gradients, and update the adapter’s parameters</li>
+</ul>
+</li>
 <li>Step 2.d: Use the updated parameters of the adapter to compute the “meta-loss” based on the query set(s) of the batch</li>
 </ul>
 </li>
 <li>Step 3: Compute the “meta-gradients”, followed by the “meta-parameters” based on the “meta-loss,” and update the learner’s parameters</li>
-<li>Step 4: Repeat the entire process from Step (2) for the remaining batches of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters.”</li>
 </ul>
 </div>
 <p>The “meta-loss” indicates how well the model is performing on the task. In effect, the <em>learner</em> is being fine-tuned using a gradient-based
