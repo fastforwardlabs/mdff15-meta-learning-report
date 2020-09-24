@@ -1,9 +1,9 @@
-In early spring of 2019, we researched approaches that would allow a machine learning practitioner to perform supervised learning with only a 
+_In early spring of 2019, we researched approaches that would allow a machine learning practitioner to perform supervised learning with only a 
 limited number of examples available during training. This search led us to a new paradigm: meta-learning, in which an algorithm not only learns 
 from a handful of examples, but also learns to classify novel classes during model inference. We decided to focus our research report—[Learning 
 with Limited Labeled Data](https://blog.fastforwardlabs.com/2019/04/02/a-guide-to-learning-with-limited-labeled-data.html)—on active learning for 
 deep neural networks, but we were both intrigued and fascinated with meta-learning as an emerging capability. This article is an attempt to throw 
-some light on the great work that’s been done in this area so far.
+some light on the great work that’s been done in this area so far._
 
 ## Introduction
 
