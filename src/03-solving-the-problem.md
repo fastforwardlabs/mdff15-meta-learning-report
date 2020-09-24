@@ -23,7 +23,7 @@ The idea is to train a model by showing it only a few examples per class, and th
 held out from the original dataset, much the way it will be tested when presented with only a few training examples from novel classes. Each 
 training example, in this case, comprises pairs of train and test data points called an *episode*.
 
-![Figure 6: Meta-learning data setup](figures/ff15-49.png)^[ Figure adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)]]
+![Figure 6: Meta-learning data setup, adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)](figures/ff15-49.png)
 
 This is a departure from the way that data is set up for conventional supervised learning. The training data (also called the meta-training data) 
 is composed of train and test examples, alternately referred to as the support and query set.

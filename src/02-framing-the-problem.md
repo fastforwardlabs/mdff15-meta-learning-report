@@ -14,7 +14,7 @@ calculate new model parameters that best reduce the difference between the “tr
 backpropagation. After backpropagation, the optimizer updates the model parameters for the model, and all of these steps are repeated for the 
 rest of the images and/or for some number of epochs, until the loss, evaluated on the train or test data, falls below an acceptable level. 
 
-![Figure 5: A training step in normal training process](figures/ff15-48.png)^[Adopted from HuggingFace’s blog post, [“From zero to research”](https://medium.com/huggingface/from-zero-to-research-an-introduction-to-meta-learning-8e16e677f78a#0f06)](figures/ff15-48.png)
+![Figure 5: A training step in normal training process, adopted from HuggingFace’s blog post, [“From zero to research”](https://medium.com/huggingface/from-zero-to-research-an-introduction-to-meta-learning-8e16e677f78a#0f06)](figures/ff15-48.png)
 
 With only five images available for training, chances are that we would likely overfit and perform poorly on the test images. Adding some 
 regularization or data augmentation may alleviate this problem to some extent, but it will not necessarily solve it. The very nature of a 
