@@ -39,7 +39,7 @@ problems—including classification, object detection and segmentation, landmark
 As with any other machine learning capability that starts to show promise, there are now libraries and tooling that make meta-learning 
 more accessible. Although not entirely production-ready, libraries like [torch-meta](https://github.com/tristandeleu/pytorch-meta), [learn2learn](https://github.com/learnables/learn2learn) and [meta-datasets](https://github.com/google-research/meta-dataset) help handle data, simplify processes when used with popular deep learning frameworks, and help document and benchmark performance on datasets. 
 
-The rest of this article, along with its accompanying code, explores meta-learning, provides insight into how it works, and discusses its 
+The rest of this report, along with its accompanying code, explores meta-learning, provides insight into how it works, and discusses its 
 implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning^[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)—applied to a few-shot classification problem, which was proposed a while ago, but 
 continues to provide a good basis for extension and modification even today. 
 

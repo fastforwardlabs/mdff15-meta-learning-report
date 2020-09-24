@@ -42,7 +42,7 @@ meta-learning also has meta-validation and meta-test sets. These are organized i
 each with support and query sets; the only difference is that the class categories are split into meta-training, validation, and test datasets, 
 such that the classes do not overlap.
 
-### Meta-learning
+### Meta-learning: learning to learn
 
 A meta-learning model should be trained on a variety of tasks, and then optimized further for novel tasks. A task, in this case, is basically a 
 supervised learning problem (like image classification or regression). The idea is to extract prior information from a set of tasks that allows 
