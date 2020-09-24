@@ -307,17 +307,15 @@ function makeStyle() {
  .table-of-contents ul {
     list-style: none;
     padding-left: 0;
-    margin-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
  .table-of-contents > ul {
-    padding-bottom: ${rlh}px;
   }
   .table-of-contents > ul > li > a:before {
           counter-increment: chapters;
           content: counter(chapters) ". ";
-  }
- .table-of-contents > ul > li {
-    font-weight: bold;
+          display: none;
   }
  .table-of-contents > ul > li {
     font-weight: bold;
@@ -344,23 +342,21 @@ function makeStyle() {
   }
   .table-of-contents ul a {
     display: block;
-    padding-left: 3ch;
-    text-indent: -1ch;
-    padding-right: 2ch;
+    padding-left: 32px;
+    text-indent: -16px;
+    padding-right: 16px;
   }
   .table-of-contents ul li a.active {
     position: relative;
     background: #ddd;
-    // text-decoration: line-through;
   }
 
  .table-of-contents > ul > li > ul > li > a {
     font-size: ${line * 0.9 * bf}px;
       line-height: ${line * 0.9}px;
-    // padding-left: 4ch;
   }
   .table-of-contents > ul > li > ul > li > ul > li > a {
-    padding-left: 5ch;
+    padding-left: 48px;
   }
 
 h1 {
@@ -381,6 +377,7 @@ h2 {
     counter-increment: chp;
     content: "chapter " counter(chp);
     text-transform: uppercase;
+    display: none
   }
 
   .toc-desktop-hidden .table-of-contents {
