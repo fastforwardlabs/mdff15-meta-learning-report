@@ -102,19 +102,16 @@ share parameter tensors in popular deep learning frameworks like PyTorch, librar
 the adaptation process. Since we have two models to train, we also have two different learning rates associated with them. The MAML algorithm can 
 then be summarized in the following steps:
 
-<<Team todo: Does the "while not done" below make sense?>>
-
 ::: info
 
 - Step 1: Randomly initialize the learner
-- Step 2: While not done
+- Step 2: Repeat the entire process from Step (2.a) to Step (3) for all the episodes of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters.”
 	- Step 2.a: Sample a batch of episodes from the meta-training dataset
 	- Step 2.b: Initialize the adapter with the learner’s parameters
 	- Step 2.c: While number of inner training steps is not equal to zero
-	- Step 2.c.1: Train the adapter based on the support set(s) of the batch, compute the loss and the gradients, and update the adapter’s parameters
+		- Step 2.c.1: Train the adapter based on the support set(s) of the batch, compute the loss and the gradients, and update the adapter’s parameters
 	- Step 2.d: Use the updated parameters of the adapter to compute the “meta-loss” based on the query set(s) of the batch
 - Step 3: Compute the “meta-gradients”, followed by the “meta-parameters” based on the “meta-loss,” and update the learner’s parameters
-- Step 4: Repeat the entire process from Step (2) for the remaining batches of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters.”
 
 :::
 
