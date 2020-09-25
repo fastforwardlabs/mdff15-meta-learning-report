@@ -16,7 +16,7 @@ Another interesting idea that’s being explored is at the crossroads of active 
 
 Over the coming years, we will see additional approaches that will make meta-learning even more adoptable in real world scenarios; whether it’s using meta-learning successfully on heterogeneous data or leveraging unlabeled data, these approaches will make learning and generalizing with fewer labeled examples possible. As previously mentioned,  we will continue to see research that simplifies both the training and inference process. These advances will allow machine learning practitioners to develop even more new ways of designing machine learning systems.
 
-#### Author’s note
+### Author’s note
 
 Thank you so much for reading this article. This work has been deeply influenced by the work of [Professor Chelsea Finn](https://ai.stanford.edu/~cbfinn/). Also, the torch-meta library, along with its demo examples, made it easier to understand and showcase meta-learning.
 

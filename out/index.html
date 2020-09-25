@@ -591,7 +591,7 @@ h2 {
 <p><em>This is an applied research report by <a href="https://www.cloudera.com/products/fast-forward-labs-research.html">Cloudera Fast Forward</a>. We write reports about emerging technologies. Read our full report on meta-learning below or <a href="/FF15-Meta-Learning-Cloudera_Fast_Forward.pdf" target="_blank" id="report-pdf-download">download the PDF</a>.</em></p>
 <p><div class="table-of-contents"><div id="toc-header" style="display: flex; font-weight: bold; text-transform: uppercase;">
      <div><button id="toggle_contents" style="padding-left: 0.5ch; padding-right: 0.5ch; cursor: pointer; position: relative; top: -1px;">☰</button><span id="contents-label" style="margin-left: 0;"> Contents</span></div>
-  </div><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#why-should-we-care%3F">Why should we care?</a></li><li><a href="#why-now%3F">Why now?</a></li></ul></li><li><a href="#framing-the-problem">Framing the problem</a></li><li><a href="#solving-the-problem">Solving the problem</a><ul><li><a href="#data-set-up">Data set-up</a></li><li><a href="#meta-learning%3A-learning-to-learn">Meta-learning: learning to learn</a></li><li><a href="#model-agnostic-meta-learning-(maml)">Model Agnostic Meta-learning (MAML)</a></li></ul></li><li><a href="#experiment">Experiment</a><ul><li><a href="#dataset">Dataset</a></li><li><a href="#set-up">Set-up</a></li><li><a href="#results">Results</a></li></ul></li><li><a href="#challenges-and-ways-to-overcome">Challenges and ways to overcome</a></li><li><a href="#ethics">Ethics</a></li><li><a href="#moving-forward">Moving forward</a></li></ul></div></p>
+  </div><ul><li><a href="#introduction">Introduction</a><ul><li><a href="#why-should-we-care%3F">Why should we care?</a></li><li><a href="#why-now%3F">Why now?</a></li></ul></li><li><a href="#framing-the-problem">Framing the problem</a></li><li><a href="#solving-the-problem">Solving the problem</a><ul><li><a href="#data-set-up">Data set-up</a></li><li><a href="#meta-learning%3A-learning-to-learn">Meta-learning: learning to learn</a></li><li><a href="#model-agnostic-meta-learning-(maml)">Model Agnostic Meta-learning (MAML)</a></li></ul></li><li><a href="#experiment">Experiment</a><ul><li><a href="#dataset">Dataset</a></li><li><a href="#set-up">Set-up</a></li><li><a href="#results">Results</a></li></ul></li><li><a href="#challenges-and-ways-to-overcome">Challenges and ways to overcome</a></li><li><a href="#ethics">Ethics</a></li><li><a href="#moving-forward">Moving forward</a><ul><li><a href="#author%E2%80%99s-note">Author’s note</a></li></ul></li></ul></div></p>
 <p><em>In early spring of 2019, we researched approaches that would allow a machine learning practitioner to perform supervised learning with only a
 limited number of examples available during training. This search led us to a new paradigm: meta-learning, in which an algorithm not only learns
 from a handful of examples, but also learns to classify novel classes during model inference. We decided to focus our research report—<a href="https://blog.fastforwardlabs.com/2019/04/02/a-guide-to-learning-with-limited-labeled-data.html">Learning
@@ -757,34 +757,34 @@ mostly used for hyper-parameter tuning, and the meta-test set measured the gener
 <h3 id="set-up">Set-up</h3>
 <p>We evaluated the MAML approach on 5-way 1/5/10-shot and 10-way 1/5/10-shot settings for the Quick, Draw! dataset. An experiment on each of the
 100-sample and 20-sample datasets consisted of training for 50 epochs with each epoch consisting of 100 batches of tasks, where a task’s batch
-size was 25. At the end of an epoch, we evaluated the model performance on the meta-validation dataset. At the end of 50 epochs, we evaluated the
+size was 25 for 100-sample and 10 for 20-sample datasets. At the end of an epoch, we evaluated the model performance on the meta-validation dataset. At the end of 50 epochs, we evaluated the
 model on the meta-test dataset.</p>
 <figure><img src="figures/9.png" alt="Figure 9: 5-way, 1-shot episode example"><figcaption>Figure 9: 5-way, 1-shot episode example</figcaption></figure>
 <p>&lt;&lt;to-do: fix model architecture&gt;&gt;</p>
-<p>In terms of model architecture, we used a network with 4 hidden layers—with sizes 28, 207, 20, 20, each including batch normalization and
-ReLU nonlinearities, followed by a linear layer and softmax. For all models, the loss function was the cross-entropy error between the
-predicted and true labels.</p>
-<p>The models were trained using an SGD optimizer with a learning rate of 0.001, an inner learning rate of 0.01 for the adaptation process,
-a step size (that is, number of gradient steps) of 5, and a task batch size of 25. All the hyper-parameters were the same for all the models,
-for a consistent comparison.</p>
+<p>In terms of model architecture, we used a network with 4 convolution layers—with size 20 channels in the intermediate representations, each
+including batch normalization and ReLU nonlinearities, followed by a linear layer. For all models, the loss function was the cross-entropy error between the predicted and true labels.</p>
+<p>The models for the 100-sample dataset were trained using an SGD optimizer with a learning rate of 0.001, an inner learning rate of 0.01 for the
+adaptation process, a step size (that is, number of gradient steps) of 5, and a task batch size of 25. All the hyper-parameters were the same for
+all the models, for a consistent comparison. While the models for the 20-sample dataset were trained with a slightly lower learning rate of 0.0005, an inner learning rate of 0.005,  a task batch size of 10 along with the rest of the parameters were same as the 100-sample dataset.</p>
 <h3 id="results">Results</h3>
 <p>&lt;&lt;to-do: update result images, and also update 20 sample runs and corresponding sentences&gt;&gt;</p>
 <p>The figures below illustrate how MAML performs on the 100- and 20-item randomly sampled versions of the Quick, Draw! dataset, for a 5-way or a
-10-way classification few-shot problem, with a varying number of examples per class. As expected, the model performance on the blind meta-test set
-is better when the model is trained on a 100-sample subset instead of using just 20 samples. Further, 5-way classification yields better results
+10-way classification few-shot problem, with a varying number of examples per class. As expected, the model performance on the both the
+meta-validation and meta-test set is better when the model is trained on a 100-sample subset instead of using just 20 samples. Further,
+5-way classification yields better results
 than 10-way classification— which is to be expected, given that 5-way classification is an easier task than 10-way classification. Also, as the
-number of shots/examples per class increase, we see better performance during validation and test time. The validation results for both 5-way and
-10-way 1/5/10-shot learning based on 20 samples show some overfitting issues after some epochs. This could likely be fixed with altering learning
-rates, but we left them as is for easy comparison to the 100-sample dataset results.</p>
+number of shots/examples per class increase, we see better performance during validation and test time. The validation results for 5-way
+1/5/10-shot learning based on 20 samples look promising too. In the 10-way learning based on 20-samples we see some overfitting after a few epochs and may want to restrain the model by stopping early. That said, we have left them as is for easy comparison with the rest of the experiment results.</p>
 <figure><img src="figures/10.png" alt="Figure 10. 5-way, 1/5/10-shot results based on 100 random sampled images"><figcaption>Figure 10. 5-way, 1/5/10-shot results based on 100 random sampled images</figcaption></figure>
 <figure><img src="figures/11.png" alt="Figure 11. 10-way, 1/5/10-shot results based on 100 random sampled images"><figcaption>Figure 11. 10-way, 1/5/10-shot results based on 100 random sampled images</figcaption></figure>
 <figure><img src="figures/12.png" alt="Figure 12. 5-way, 1/5/10-shot results based on 20 random sampled images"><figcaption>Figure 12. 5-way, 1/5/10-shot results based on 20 random sampled images</figcaption></figure>
 <figure><img src="figures/13.png" alt="Figure 13. 10-way, 1/5/10-shot results based on 20 random sampled images"><figcaption>Figure 13. 10-way, 1/5/10-shot results based on 20 random sampled images</figcaption></figure>
+<figure><img src="figures/14.png" alt="Figure 14. Meta-test dataset results"><figcaption>Figure 14. Meta-test dataset results</figcaption></figure>
 <p>Our results demonstrate that the MAML approach is beneficial for learning with only a few examples. In the 100 randomly sampled images scenario,
-the 5-way classification task gives an accuracy of over 60% with just one example on the validation and test datasets. The model performance is
-even better with additional examples; for both 5 examples and 10 examples per class, accuracy shoots up to 80%. As expected, for the 10-way
-classification task, the results are lower (by around 10%) but still promising, which suggests the applicability of the approach for fast
-adaptive learning. &lt;&lt;Todo: add a sentence for 20 random sample scenario&gt;&gt;</p>
+the 5-way classification task gives an accuracy of around 68% with just one example. The model performance is
+even better with additional examples; for both 5 examples and 10 examples per class, accuracy shoots over 80%. As expected, for the 10-way
+classification task, the results are lower (by around 10-15%) but still promising.</p>
+<p>For the 20-random sample scenario and a more realistic one from a meta-learning point of view, the 5-way results are still pretty good ~60% accuracy with just one example. The 10-way classification results are lower similar to the 100-sample dataset. Nonetheless, overall the results are promising even with minimal tuning and suggests the applicability of the approach for fast adaptive learning.</p>
 <h2 id="challenges-and-ways-to-overcome">Challenges and ways to overcome</h2>
 <p>The MAML approach fine-tunes its model using gradient descent each time for a new task. This requires it to backpropagate the meta-loss through
 the model’s gradients, which involves computing derivatives of derivatives, i.e., second derivatives. While the gradient descent at test time helps it extrapolate better, it does have its costs.</p>
@@ -814,7 +814,7 @@ as well as the various approaches in this area, how we defined an episode was pr
 <p>In real world scenarios, it’s often likely that we’ll have lots of unlabeled data. In such circumstances, is it possible to employ meta-learning algorithms to leverage these unlabeled datasets? The authors of one research paper<sup class="footnote-ref"><a href="#fn19" id="fnref19">[19]</a></sup> propose a solution to this by augmenting a metric-based meta-learning approach to leverage unlabeled examples. In addition to the support set and the query set, the episode includes an unlabeled set. This unlabeled set may or may not contain examples from the support set classes. The idea is to use the labeled examples from the support set and the unlabeled examples within each episode to generalize for a good performance on the corresponding query set. Experiments show an improvement in model performance in some cases.</p>
 <p>Another interesting idea that’s being explored is at the crossroads of active learning<sup class="footnote-ref"><a href="#fn20" id="fnref20">[20]</a></sup> and meta-learning. The field of active learning takes advantage of machine learning in collaboration with humans, selecting examples from vast pools of unlabeled data and requesting labels for them. At times, these examples are chosen based on how uncertain the model is about its predicted label, or by how “different” it is than the rest, etc.—with the ultimate aim to improve model performance. Since there are fewer labeled training examples to begin with, one could employ meta-learning approaches in such a scenario; for instance, a metric-based approach has been discussed for batch-mode active learning.<sup class="footnote-ref"><a href="#fn21" id="fnref21">[21]</a></sup> (It is also possible to learn a label acquisition strategy instead.)<sup class="footnote-ref"><a href="#fn22" id="fnref22">[22]</a></sup></p>
 <p>Over the coming years, we will see additional approaches that will make meta-learning even more adoptable in real world scenarios; whether it’s using meta-learning successfully on heterogeneous data or leveraging unlabeled data, these approaches will make learning and generalizing with fewer labeled examples possible. As previously mentioned,  we will continue to see research that simplifies both the training and inference process. These advances will allow machine learning practitioners to develop even more new ways of designing machine learning systems.</p>
-<h4 id="author%E2%80%99s-note">Author’s note</h4>
+<h3 id="author%E2%80%99s-note">Author’s note</h3>
 <p>Thank you so much for reading this article. This work has been deeply influenced by the work of <a href="https://ai.stanford.edu/~cbfinn/">Professor Chelsea Finn</a>. Also, the torch-meta library, along with its demo examples, made it easier to understand and showcase meta-learning.</p>
 <hr class="footnotes-sep">
 <section class="footnotes">
