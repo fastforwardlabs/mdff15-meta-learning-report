@@ -585,7 +585,7 @@ function makeJS() {
 }
 
 function makeHead() {
-  let title = 'Causality for Machine Learning'
+  let title = 'Meta-Learning'
   let description =
     'An online research report on causality for machine learning by Cloudera Fast Forward.'
   return `<head>
@@ -596,8 +596,8 @@ function makeHead() {
 
 <meta property="og:title" content="${title}" /> 
 <meta property="og:description" content="${description}" />
-<meta property="og:image" content="https://ff13.fastforwardlabs.com/causality.png" />
-<meta property="og:url" content="https://ff13.fastforwardlabs.com" />
+<meta property="og:image" content="https://meta-learning.fastforwardlabs.com/figures/ff15-cover-splash.png" />
+<meta property="og:url" content="https://meta-learning.fastforwardlabs.com" />
 <meta name="twitter:card" content="summary_large_image" />
 
 <meta name="viewport" content="width=device-width" />
