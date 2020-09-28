@@ -5,9 +5,9 @@
 What meta-learning proposes is to use an end-to-end deep learning algorithm that can learn a representation better suited for few-shot learning. 
 It is similar to the pre-trained network approach, except that it learns an initialization that serves as a good starting point for the handful of 
 training data points. In the few-shot classification problem  discussed, we could leverage training data that’s available from other image 
-classes, for instance, we could look at the training data available and use images from classes like mushrooms, dogs, eyewear, etc. The model 
+classes; for instance, we could look at the training data available and use images from classes like mushrooms, dogs, eyewear, etc. The model 
 could then build up prior knowledge such that, at inference time, it can quickly acquire task-specific knowledge with only a handful of training 
-examples.  This way, the model first learns parameters from a training dataset that consists of images from other classes, and then uses those 
+examples. This way, the model first learns parameters from a training dataset that consists of images from other classes, and then uses those 
 parameters as prior knowledge to tune them further, based on the limited training set (in this case, the one with five training examples). 
 
 Now the question is, how can the model learn a good initial set of parameters which can then be easily adapted to the downstream tasks? 
@@ -21,9 +21,9 @@ The answer lies in a simple training principle, which was initially proposed by 
 
 The idea is to train a model by showing it only a few examples per class, and then test it against examples from the same classes that have been 
 held out from the original dataset, much the way it will be tested when presented with only a few training examples from novel classes. Each 
-training example, in this case, comprises pairs of train and test data points called an *episode*.
+training example, in this case, is comprised of pairs of train and test data points, called an *episode*.
 
-![Figure 6: Meta-learning data setup, adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)](figures/ff15-49.png)
+![Figure 6: Meta-learning data set-up, adopted from [Optimization as a Model for Few-Shot Learning (PDF)](https://openreview.net/pdf?id=rJY0-Kcll)](figures/ff15-49.png)
 
 This is a departure from the way that data is set up for conventional supervised learning. The training data (also called the meta-training data) 
 is composed of train and test examples, alternately referred to as the support and query set.
@@ -47,8 +47,8 @@ such that the classes do not overlap.
 A meta-learning model should be trained on a variety of tasks, and then optimized further for novel tasks. A task, in this case, is basically a 
 supervised learning problem (like image classification or regression). The idea is to extract prior information from a set of tasks that allows 
 efficient learning on new tasks. For our image classification problem, the ideal set-up would include many classes, with at least a few examples 
-for each. These can then be used as a meta-training set to extract prior information, such that when a new task like the one in the Figure(4) 
-above comes in, the model can perform it more efficiently.
+for each. These can then be used as a meta-training set to extract prior information, such that when a new task (like the one in the Figure 4, 
+above) comes in, the model can perform it more efficiently.
 
 At a high level, the meta-learning process has two phases: meta-learning and adaptation. In the meta-learning phase, the model learns an initial 
 set of parameters slowly across tasks; during the adaptation phase, it focuses on quick acquisition of knowledge to learn task-specific 
@@ -61,18 +61,18 @@ set of meta-parameters, and then make predictions on the query set. They approac
 approaches that try to eliminate the need to learn an entire network.^[[One-shot Learning with Memory-Augmented Neural Networks](https://link.springer.com/chapter/10.1007/978-1-4615-5529-2_1)]
 
 Metric-based approaches usually employ non-parametric techniques (for example, *k*-nearest neighbors) for learning. The core idea is to learn a 
-feature representation (e.g.,  learning an embedding network that transforms raw inputs into a representation which allows similarity comparison 
+feature representation (e.g., learning an embedding network that transforms raw inputs into a representation which allows similarity comparison 
 between the support set and the query set). Thus, performance depends on the chosen similarity metric (like cosine similarity or euclidean 
 distance).
 
-Finally, optimization-based approaches treat the adaptation part of the process as an optimization problem. This article mainly focuses on one of 
+Finally, optimization-based approaches treat the adaptation part of the process as an optimization problem. This report mainly focuses on one of 
 the well-known approaches in this category, but before we delve into it, let’s look at how optimization-based learning actually works.
 
 During training, we iterate over datasets of episodes. In meta-training, we start with the first episode, and the meta-learner takes the training 
 (support) set and produces a learner (or a model) that will take as input the test (query) set and make predictions on it. The meta-learning 
 objective is based on a loss (for example, cross-entropy) that is derived from the test or query set examples and will backpropagate through these 
 errors. The parameters of the meta-learner (that is, meta-parameters) are then updated based on these errors to optimize the loss.^[Note that this 
-differs from a conventional supervised learning set up, in which the objective is based on a loss derived only from the training set, and, of 
+differs from a conventional supervised learning set-up, in which the objective is based on a loss derived only from the training set, and, of 
 course, there is no support or query set!]
 
 In the next step, we look at the next episode, train on the support set examples, make predictions on the query set, update meta-parameters, and 
@@ -83,13 +83,13 @@ set are not part of the training—so, in a way, the meta-learner is learning to
 
 ### Model Agnostic Meta-learning (MAML)
 
-Now that we have a general idea of how meta-learning works, the rest of this article mainly focuses on MAML^[[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)], which is perhaps one of the best known optimization-based approaches. 
+Now that we have a general idea of how meta-learning works, the rest of this report mainly focuses on MAML^[[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)], which is perhaps one of the best known optimization-based approaches. 
 While there have been more recent extensions to it, MAML continues to serve as a foundational approach. 
 
 The goal of meta-learning is to help the model quickly adapt to or learn on a new task, based on only a few examples. In order for that to happen, 
 the meta-learning process has to help the model learn from a large number of tasks.  For example, for the image classification problem we’ve 
-considered, the new task is the one shown in Figure(4), while the large number of tasks could be images from other classes that are utilized for 
-building a meta-training dataset, as shown in Figure(6).
+considered, the new task is the one shown in Figure 4, while the large number of tasks could be images from other classes that are utilized for 
+building a meta-training dataset, as shown in Figure 6.
 
 The key idea in MAML is to establish initial model parameters in the meta-training phase that maximize its performance on the new task. This is 
 done by updating the initial model parameters with a few gradient steps on the new task. Training the model parameters in this way allows the 
@@ -105,7 +105,7 @@ then be summarized in the following steps:
 ::: info
 
 - Step 1: Randomly initialize the learner
-- Step 2: Repeat the entire process from Step (2.a) to Step (3) for all the episodes of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters.”
+- Step 2: Repeat the entire process from Step 2.a to Step 3 for all the episodes of the meta-training dataset (or for a certain number of epochs) until the learner converges to a good set of “meta-parameters”
 	- Step 2.a: Sample a batch of episodes from the meta-training dataset
 	- Step 2.b: Initialize the adapter with the learner’s parameters
 	- Step 2.c: While number of inner training steps is not equal to zero
