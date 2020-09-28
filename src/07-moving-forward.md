@@ -1,6 +1,6 @@
 ## Moving forward
 
-Meta-learning is appealing; its ability to learn from a few examples makes it particularly attractive. A gradient-based approach like MAML puts us in familiar territory: using pre-trained models and fine-tuning them. The MAML algorithm is simple, and its ability to perform a few gradient steps at inference time allows it to generalize quickly to unseen classes. The approach is applicable to a variety of problems—including regression, classification, and reinforcement learning—and can be combined with any model architecture, as long as the model is trained based on gradient descent.
+Meta-learning is appealing; its ability to learn from a few examples makes it particularly attractive. A gradient-based approach to meta-learning, like MAML, puts us in familiar territory: using pre-trained models and fine-tuning them. The MAML algorithm is simple, and its ability to perform a few gradient steps at inference time allows it to generalize quickly to unseen classes. The approach is applicable to a variety of problems—including regression, classification, and reinforcement learning—and can be combined with any model architecture, as long as the model is trained based on gradient descent.
 
 While there are many areas of future research on meta-learning, here is our perspective on what could make it more adoptable in real world scenarios, as well as which areas could benefit from future work.
 
@@ -18,5 +18,5 @@ Over the coming years, we will see additional approaches that will make meta-lea
 
 ### Author’s note
 
-Thank you so much for reading this article. This work has been deeply influenced by the work of [Professor Chelsea Finn](https://ai.stanford.edu/~cbfinn/). Also, the torch-meta library, along with its demo examples, made it easier to understand and showcase meta-learning.
+Thank you for reading this report. This work has been deeply influenced by the work of [Professor Chelsea Finn](https://ai.stanford.edu/~cbfinn/). Also, the [torch-meta library](https://github.com/tristandeleu/pytorch-meta), along with its demo examples, made it easier to understand and showcase meta-learning.
 
