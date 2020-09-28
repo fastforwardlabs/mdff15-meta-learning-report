@@ -59,4 +59,4 @@ the 5-way classification task gives an accuracy of around 68% with just one exam
 even better with additional examples; for both 5 examples and 10 examples per class, accuracy shoots over 80%. As expected, for the 10-way 
 classification task, the results are lower (by around 10-15%), but still promising. 
 
-For the 20-random sample scenario (which is a more realistic one, from a meta-learning point of view), the 5-way results are still pretty good: ~60% accuracy with just one example. The 10-way classification results are lower, similar to the 100-sample dataset. Nonetheless, overall, the results are promising-even with minimal tuning-which suggests the applicability of the approach for fast adaptive learning.
+For the 20-random sample scenario (which is a more realistic one, from a meta-learning point of view), the 5-way results are still pretty good: ~60% accuracy with just one example. The 10-way classification results are lower, similar to the 100-sample dataset. Nonetheless, overall, the results are promising - even with minimal tuning - which suggests the applicability of the approach for fast adaptive learning.
