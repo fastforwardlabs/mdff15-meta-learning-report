@@ -615,12 +615,12 @@ hinder model performance.</p>
 <h3 id="why-now%3F">Why now?</h3>
 <p>From a deep learning perspective, meta-learning is particularly exciting and adoptable for three reasons: the ability to learn from a handful of examples, learning or adapting to novel tasks quickly, and the capability to build more generalizable systems. These are also some of the reasons why meta-learning is successful in applications that require data-efficient approaches; for example, robots are tasked with learning new skills in the real world, and are often faced with new environments.</p>
 <p>Further, computer vision is one of the major areas in which meta-learning techniques have been explored to solve few-shot learning
-problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>(https://arxiv.org/abs/2004.05439) Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>(https://arxiv.org/abs/1606.04080) and machine translation<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>(https://arxiv.org/abs/1808.08437), and is also being applied to speech recognition tasks, like cross-accent adaptation.<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>(https://arxiv.org/abs/2003.01901)</p>
+problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup> Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> and machine translation<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>, and is also being applied to speech recognition tasks, like cross-accent adaptation.<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup></p>
 <figure><img src="figures/ff15-46.png" alt="Figure 3: Applications - object detection, machine translation, missing words"><figcaption>Figure 3: Applications - object detection, machine translation, missing words</figcaption></figure>
 <p>As with any other machine learning capability that starts to show promise, there are now libraries and tooling that make meta-learning
 more accessible. Although not entirely production-ready, libraries like <a href="https://github.com/tristandeleu/pytorch-meta">torch-meta</a>, <a href="https://github.com/learnables/learn2learn">learn2learn</a> and <a href="https://github.com/google-research/meta-dataset">meta-datasets</a> help handle data, simplify processes when used with popular deep learning frameworks, and help document and benchmark performance on datasets.</p>
 <p>The rest of this report, along with its accompanying code, explores meta-learning, provides insight into how it works, and discusses its
-implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>(https://arxiv.org/pdf/1703.03400.pdf)—applied to a few-shot classification problem, which was proposed a while ago, but
+implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>—applied to a few-shot classification problem, which was proposed a while ago, but
 continues to provide a good basis for extension and modification even today.</p>
 <h2 id="framing-the-problem">Framing the problem</h2>
 <p>What kind of problems can meta-learning help us solve? One of the most popular categories is few-shot learning. In a few-shot learning scenario, we have only a limited number of examples on which to perform supervised learning, and it is important to learn effectively from them. The ability to do so could help relieve the data-gathering burden (which at times may not even be possible).</p>
@@ -819,15 +819,15 @@ as well as the various approaches in this area, how we defined an episode was pr
 <ol class="footnotes-list">
 <li id="fn1" class="footnote-item"><p><a href="https://papers.nips.cc/paper/7278-learning-to-model-the-tail.pdf">Learning to Model the Tail (PDF)</a> <a href="#fnref1" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn2" class="footnote-item"><p>Meta-learning in Neural Networks: A Survey <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+<li id="fn2" class="footnote-item"><p><a href="https://arxiv.org/abs/2004.05439">Meta-learning in Neural Networks: A Survey</a> <a href="#fnref2" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn3" class="footnote-item"><p>Matching Networks for One-Shot Learning <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+<li id="fn3" class="footnote-item"><p><a href="https://arxiv.org/abs/1606.04080">Matching Networks for One-Shot Learning</a> <a href="#fnref3" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn4" class="footnote-item"><p>Meta-Learning for Low-Resource Neural Machine Translation <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+<li id="fn4" class="footnote-item"><p><a href="https://arxiv.org/abs/1808.08437">Meta-Learning for Low-Resource Neural Machine Translation</a> <a href="#fnref4" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn5" class="footnote-item"><p>Learning Fast Adaptation on Cross-Accented Speech Recognition <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+<li id="fn5" class="footnote-item"><p><a href="https://arxiv.org/abs/2003.01901">Learning Fast Adaptation on Cross-Accented Speech Recognition</a> <a href="#fnref5" class="footnote-backref">↩︎</a></p>
 </li>
-<li id="fn6" class="footnote-item"><p>Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF) <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+<li id="fn6" class="footnote-item"><p><a href="https://arxiv.org/pdf/1703.03400.pdf">Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)</a> <a href="#fnref6" class="footnote-backref">↩︎</a></p>
 </li>
 <li id="fn7" class="footnote-item"><p><a href="https://arxiv.org/abs/1606.04080">Matching Networks for One-Shot Learning</a> <a href="#fnref7" class="footnote-backref">↩︎</a></p>
 </li>
