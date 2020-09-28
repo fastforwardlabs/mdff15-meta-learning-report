@@ -13,7 +13,10 @@ performance are still in the works.^[[How to train your MAML](https://arxiv.org/
 As we saw previously, learning occurs in two stages: gradual learning is performed across tasks, and rapid learning is performed within tasks. 
 This requires two learning rates, which introduces difficulty in choosing hyper-parameters that will help achieve training stability. 
 The two learning rates introduce hyper-parameter grid search computation - and hence, time and resources. It is also important to select the learning rate for the adaptation process carefully, because the model is learning over only a few examples. In that regard, some solutions or extensions to MAML 
-have been developed to reduce the need for grid search or hyper-parameter tuning. For example, Alpha MAML^[[Alpha MAML: Adaptive Model Agnostic Meta Learning](https://arxiv.org/abs/1905.07435)] eliminates the need to tune both the learning rates by automatically updating them as needed. MAML++, on the other hand, proposes updating the query set loss (meta-loss) for every training step in the adaptation process, which can help eliminate the training instabilities. (They also suggest various other steps to make it computationally efficient.)
+have been developed to reduce the need for grid search or hyper-parameter tuning. For example, 
+Alpha MAML^[[Alpha MAML: Adaptive Model Agnostic Meta Learning](https://arxiv.org/abs/1905.07435)] eliminates the need to tune both the learning 
+rates by automatically updating them as needed. MAML++, on the other hand, proposes updating the query set loss (meta-loss) for every training 
+step in the adaptation process, which can help eliminate the training instabilities. (The authors also suggest various other steps to make it computationally efficient.)
 
 Research that performs neural architecture search for gradient-based meta-learners^[[Auto-Meta: Automated Gradient Based Meta Learner Search](https://arxiv.org/abs/1806.06927)] also suggests that approaches like MAML and its extensions tend to perform better with deeper neural architectures for few-shot classification tasks. While note-worthy, the approach nevertheless should be explored further, with more experiments.
 
