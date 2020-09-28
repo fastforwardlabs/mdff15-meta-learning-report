@@ -637,7 +637,7 @@ function wrap(content) {
       <body>
         <div class="content" style="position: relative;">
           <div id="html-logo" style="margin-top: ${line}px; line-height: 0; display: flex;">
-            <a href="https://www.cloudera.com/products/fast-forward-labs-research.html"><img alt="Cloudera Fast Forward" style="display: block; height: 14px; margin-bottom: 7px;" src='/figures/cloudera-fast-forward-logo.png' /></a>
+            <a href="https://www.cloudera.com/products/fast-forward-labs-research.html"><img alt="Cloudera Fast Forward" style="display: block; height: 14px; margin-bottom: 7px;" src='/figures/cloudera-fast-forward.png' /></a>
           </div>
           <div id="pdf-logo" style="margin-top: ${line}px; ">
             <a href="https://www.cloudera.com/products/fast-forward-labs-research.html">Cloudera Fast Forward</a>
