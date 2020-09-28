@@ -32,7 +32,7 @@ Most important, the ability to learn new tasks quickly during model inference is
 From a deep learning perspective, meta-learning is particularly exciting and adoptable for three reasons: the ability to learn from a handful of examples, learning or adapting to novel tasks quickly, and the capability to build more generalizable systems. These are also some of the reasons why meta-learning is successful in applications that require data-efficient approaches; for example, robots are tasked with learning new skills in the real world, and are often faced with new environments.
 
 Further, computer vision is one of the major areas in which meta-learning techniques have been explored to solve few-shot learning 
-problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.^[Meta-learning in Neural Networks: A Survey](https://arxiv.org/abs/2004.05439) Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words^[Matching Networks for One-Shot Learning](https://arxiv.org/abs/1606.04080) and machine translation^[Meta-Learning for Low-Resource Neural Machine Translation](https://arxiv.org/abs/1808.08437), and is also being applied to speech recognition tasks, like cross-accent adaptation.^[Learning Fast Adaptation on Cross-Accented Speech Recognition](https://arxiv.org/abs/2003.01901)
+problems—including classification, object detection and segmentation, landmark prediction, video synthesis, and others.^[[Meta-learning in Neural Networks: A Survey](https://arxiv.org/abs/2004.05439)] Additionally, meta-learning has been popular in language modeling tasks, like filling in missing words^[[Matching Networks for One-Shot Learning](https://arxiv.org/abs/1606.04080)] and machine translation^[[Meta-Learning for Low-Resource Neural Machine Translation](https://arxiv.org/abs/1808.08437)], and is also being applied to speech recognition tasks, like cross-accent adaptation.^[[Learning Fast Adaptation on Cross-Accented Speech Recognition](https://arxiv.org/abs/2003.01901)]
 
 ![Figure 3: Applications - object detection, machine translation, missing words](figures/ff15-46.png)
 
@@ -40,7 +40,7 @@ As with any other machine learning capability that starts to show promise, there
 more accessible. Although not entirely production-ready, libraries like [torch-meta](https://github.com/tristandeleu/pytorch-meta), [learn2learn](https://github.com/learnables/learn2learn) and [meta-datasets](https://github.com/google-research/meta-dataset) help handle data, simplify processes when used with popular deep learning frameworks, and help document and benchmark performance on datasets. 
 
 The rest of this report, along with its accompanying code, explores meta-learning, provides insight into how it works, and discusses its 
-implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning^[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)—applied to a few-shot classification problem, which was proposed a while ago, but 
+implications. We’ll do this using a simple, yet elegant algorithm—Model Agnostic Meta-Learning^[[Model Agnostic Meta-learning for Fast Adaptation of Deep Networks (PDF)](https://arxiv.org/pdf/1703.03400.pdf)]—applied to a few-shot classification problem, which was proposed a while ago, but 
 continues to provide a good basis for extension and modification even today. 
 
 
