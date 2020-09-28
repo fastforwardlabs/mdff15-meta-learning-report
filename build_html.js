@@ -587,7 +587,7 @@ function makeJS() {
 function makeHead() {
   let title = 'Meta-Learning'
   let description =
-    'An online research report on causality for machine learning by Cloudera Fast Forward.'
+    'An online research report on meta-learning by Cloudera Fast Forward.'
   return `<head>
 <meta charset="utf-8" />
 
