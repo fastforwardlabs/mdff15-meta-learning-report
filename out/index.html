@@ -624,8 +624,10 @@ implications. We’ll do this using a simple, yet elegant algorithm—Model Agno
 continues to provide a good basis for extension and modification even today.</p>
 <h2 id="framing-the-problem">Framing the problem</h2>
 <p>What kind of problems can meta-learning help us solve? One of the most popular categories is few-shot learning. In a few-shot learning scenario, we have only a limited number of examples on which to perform supervised learning, and it is important to learn effectively from them. The ability to do so could help relieve the data-gathering burden (which at times may not even be possible).</p>
-<p>Let’s say we want to solve a few-shot classification problem, shown below in Figure 4. Usually the few-shot classification problem is set up as a N-way k-shot problem, where N is the number of classes and k is the number of examples in each class. For example, let’s say we are given an image from each of five different classes (that is, N=5 and k=1) and we are supposed to classify new images as belonging to one of these classes. What can we do? How would one normally model this?</p>
-<figure><img src="figures/ff15-47.png" alt="Figure 4: A few-shot classification (5-way, 1-shot) problem"><figcaption>Figure 4: A few-shot classification (5-way, 1-shot) problem</figcaption></figure>
+<p>Let’s say we want to solve a few-shot classification problem, shown below in Figure 4. Usually the few-shot classification problem is set up as a <em>N</em>-way <em>k</em>-shot problem, where <em>N</em> is the number of classes and <em>k</em> is the number of examples in each class. For example, let’s say we are given
+an image from each of five different classes (that is, <em>N</em>=5 and <em>k</em>=1) and we are supposed to classify new images as belonging to one of these
+classes. What can we do? How would one normally model this?</p>
+<figure><img src="figures/ff15-47.png" alt="Figure 4: A few-shot classification (5-way, 1-shot) problem"><figcaption>Figure 4: A few-shot classification (<em>5</em>-way, <em>1</em>-shot) problem</figcaption></figure>
 <p>One way to solve the problem would be to train a neural network model from scratch on the five training images. At a high level, a training step
 will look something like Figure 5, below. The neural network model is randomly initialized and receives an image (or images) as input.
 It then predicts the output label(s) based on the initial model parameters. The difference between the true label(s) and the predicted label(s)
@@ -677,7 +679,7 @@ above) comes in, the model can perform it more efficiently.</p>
 <p>At a high level, the meta-learning process has two phases: meta-learning and adaptation. In the meta-learning phase, the model learns an initial
 set of parameters slowly across tasks; during the adaptation phase, it focuses on quick acquisition of knowledge to learn task-specific
 parameters. Since the learning happens at two levels, meta-learning is also known as learning to learn.<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup></p>
-<p>A variety of approaches have been proposed that vary based on how the adaptation portion of the training process performs. These can broadly be classified into three categories: “black-box” or model-based, metric-based, and optimization-based approaches.</p>
+<p>A variety of approaches have been proposed that vary based on how the adaptation portion of the training process is performed. These can broadly be classified into three categories: “black-box” or model-based, metric-based, and optimization-based approaches.</p>
 <p>“Black-box” (or model-based) approaches simply train an entire neural network, given some training examples in the support set and an initial
 set of meta-parameters, and then make predictions on the query set. They approach the problem as supervised learning, although there are
 approaches that try to eliminate the need to learn an entire network.<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup></p>
@@ -764,10 +766,11 @@ model on the meta-test dataset.</p>
 including batch normalization and ReLU nonlinearities, followed by a linear layer. For all models, the loss function was the cross-entropy error between the predicted and true labels.</p>
 <p>The models for the 100-sample dataset were trained using an SGD optimizer with a learning rate of 0.001, an inner learning rate of 0.01 for the
 adaptation process, a step size (that is, number of gradient steps) of 5, and a task batch size of 25. All the hyper-parameters were the same for
-all the models, for a consistent comparison. While the models for the 20-sample dataset were trained with a slightly lower learning rate of 0.0005, an inner learning rate of 0.005 and a task batch size of 10 (along with the rest of the parameters) were the same as the 100-sample dataset.</p>
+all the models, for a consistent comparison. While the models for the 20-sample dataset were trained with a slightly lower learning rate of
+0.0005, an inner learning rate of 0.005 and a task batch size of 10 while the rest of the parameters were the same as the 100-sample dataset.</p>
 <h3 id="results">Results</h3>
 <p>The figures below illustrate how MAML performs on the 100-item and 20-item randomly sampled versions of the Quick, Draw! dataset, for a 5-way or a
-10-way classification few-shot problem, with a varying number of examples per class. As expected, the model performance on both the
+10-way few-shot classification problem, with a varying number of examples per class. As expected, the model performance on both the
 meta-validation and meta-test sets is better when the model is trained on a 100-sample subset instead of using just 20 samples. Further,
 5-way classification yields better results
 than 10-way classification—which is to be expected, given that 5-way classification is an easier task than 10-way classification. Also, as the
