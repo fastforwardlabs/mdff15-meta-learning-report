@@ -32,12 +32,13 @@ including batch normalization and ReLU nonlinearities, followed by a linear laye
 
 The models for the 100-sample dataset were trained using an SGD optimizer with a learning rate of 0.001, an inner learning rate of 0.01 for the 
 adaptation process, a step size (that is, number of gradient steps) of 5, and a task batch size of 25. All the hyper-parameters were the same for 
-all the models, for a consistent comparison. While the models for the 20-sample dataset were trained with a slightly lower learning rate of 0.0005, an inner learning rate of 0.005 and a task batch size of 10 (along with the rest of the parameters) were the same as the 100-sample dataset.
+all the models, for a consistent comparison. While the models for the 20-sample dataset were trained with a slightly lower learning rate of 
+0.0005, an inner learning rate of 0.005 and a task batch size of 10 while the rest of the parameters were the same as the 100-sample dataset.
 
 ### Results
 
 The figures below illustrate how MAML performs on the 100-item and 20-item randomly sampled versions of the Quick, Draw! dataset, for a 5-way or a 
-10-way classification few-shot problem, with a varying number of examples per class. As expected, the model performance on both the 
+10-way few-shot classification problem, with a varying number of examples per class. As expected, the model performance on both the 
 meta-validation and meta-test sets is better when the model is trained on a 100-sample subset instead of using just 20 samples. Further, 
 5-way classification yields better results 
 than 10-way classification—which is to be expected, given that 5-way classification is an easier task than 10-way classification. Also, as the 

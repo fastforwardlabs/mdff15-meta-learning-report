@@ -54,7 +54,7 @@ At a high level, the meta-learning process has two phases: meta-learning and ada
 set of parameters slowly across tasks; during the adaptation phase, it focuses on quick acquisition of knowledge to learn task-specific 
 parameters. Since the learning happens at two levels, meta-learning is also known as learning to learn.^[Thrun S., Pratt L. (eds). [Learning to Learn](https://link.springer.com/chapter/10.1007/978-1-4615-5529-2_1). Springer, Boston, MA. 1998.] 
 
-A variety of approaches have been proposed that vary based on how the adaptation portion of the training process performs. These can broadly be classified into three categories: “black-box” or model-based, metric-based, and optimization-based approaches. 
+A variety of approaches have been proposed that vary based on how the adaptation portion of the training process is performed. These can broadly be classified into three categories: “black-box” or model-based, metric-based, and optimization-based approaches. 
 
 “Black-box” (or model-based) approaches simply train an entire neural network, given some training examples in the support set and an initial 
 set of meta-parameters, and then make predictions on the query set. They approach the problem as supervised learning, although there are 

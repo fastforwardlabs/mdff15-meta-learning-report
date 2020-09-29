@@ -2,9 +2,11 @@
 
 What kind of problems can meta-learning help us solve? One of the most popular categories is few-shot learning. In a few-shot learning scenario, we have only a limited number of examples on which to perform supervised learning, and it is important to learn effectively from them. The ability to do so could help relieve the data-gathering burden (which at times may not even be possible).
 
-Let’s say we want to solve a few-shot classification problem, shown below in Figure 4. Usually the few-shot classification problem is set up as a N-way k-shot problem, where N is the number of classes and k is the number of examples in each class. For example, let's say we are given an image from each of five different classes (that is, N=5 and k=1) and we are supposed to classify new images as belonging to one of these classes. What can we do? How would one normally model this?
+Let’s say we want to solve a few-shot classification problem, shown below in Figure 4. Usually the few-shot classification problem is set up as a *N*-way *k*-shot problem, where *N* is the number of classes and *k* is the number of examples in each class. For example, let's say we are given 
+an image from each of five different classes (that is, *N*=5 and *k*=1) and we are supposed to classify new images as belonging to one of these 
+classes. What can we do? How would one normally model this?
 
-![Figure 4: A few-shot classification (5-way, 1-shot) problem](figures/ff15-47.png)
+![Figure 4: A few-shot classification (*5*-way, *1*-shot) problem](figures/ff15-47.png)
 
 One way to solve the problem would be to train a neural network model from scratch on the five training images. At a high level, a training step 
 will look something like Figure 5, below. The neural network model is randomly initialized and receives an image (or images) as input. 
